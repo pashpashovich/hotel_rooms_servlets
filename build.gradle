@@ -33,8 +33,6 @@ dependencies {
 
     implementation 'org.postgresql:postgresql:42.7.3'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-    implementation 'org.springframework.security:spring-security-core:6.3.2'
-
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

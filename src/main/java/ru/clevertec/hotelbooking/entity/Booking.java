@@ -2,7 +2,6 @@ package ru.clevertec.hotelbooking.entity;
 
 import lombok.Data;
 
-import java.security.Timestamp;
 import java.time.LocalDate;
 
 @Data

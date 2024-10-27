@@ -2,7 +2,6 @@ package ru.clevertec.hotelbooking.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import ru.clevertec.hotelbooking.util.Role;
 
 @Data

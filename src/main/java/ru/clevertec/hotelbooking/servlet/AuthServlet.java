@@ -16,11 +16,12 @@ import java.util.Optional;
 @WebServlet("/login")
 public class AuthServlet extends HttpServlet {
     private final UserRepository userRepository = new UserRepository();
+    private static final String TOLOGIN = "WEB-INF/views/login.jsp";
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request, response);
+        request.getRequestDispatcher(TOLOGIN).forward(request, response);
     }
 
     @Override
@@ -33,15 +34,16 @@ public class AuthServlet extends HttpServlet {
             if (Objects.equals(password, user.getPassword())) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                if (user.getRole().toString().equals("ADMIN")) response.sendRedirect(request.getContextPath() + "/profile");
+                if (user.getRole().toString().equals("ADMIN"))
+                    response.sendRedirect(request.getContextPath() + "/profile");
                 else response.sendRedirect(request.getContextPath() + "/user");
             } else {
                 request.setAttribute("error", "password_not_correct");
-                request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request, response);
+                request.getRequestDispatcher(TOLOGIN).forward(request, response);
             }
         } else {
             request.setAttribute("error", "username_not_found");
-            request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request, response);
+            request.getRequestDispatcher(TOLOGIN).forward(request, response);
         }
     }
 }

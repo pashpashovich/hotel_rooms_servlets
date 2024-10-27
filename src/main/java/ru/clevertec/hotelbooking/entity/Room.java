@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room {
-        private Long id;
-        private String roomType;
-        private BigDecimal price;
+    private Long id;
+    private String roomType;
+    private BigDecimal price;
 }
