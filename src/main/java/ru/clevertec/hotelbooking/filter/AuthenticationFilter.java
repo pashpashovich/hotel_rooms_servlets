@@ -17,8 +17,8 @@ import java.io.IOException;
 public class AuthenticationFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
+    public void init(FilterConfig filterConfig) {
+        // No init
     }
 
     @Override
@@ -40,5 +40,6 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void destroy() {
+        // No destroy
     }
 }

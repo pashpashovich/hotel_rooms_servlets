@@ -5,21 +5,24 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ru.clevertec.hotelbooking.entity.User;
-import ru.clevertec.hotelbooking.repository.Repository;
+import ru.clevertec.hotelbooking.dto.UserDTO;
 import ru.clevertec.hotelbooking.repository.UserRepository;
-import ru.clevertec.hotelbooking.util.Role;
+import ru.clevertec.hotelbooking.service.UserService;
 
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/admin/users")
 public class UserManagementServlet extends HttpServlet {
-    private final Repository userRepository = new UserRepository();
+    private final UserService userService;
+
+    public UserManagementServlet() {
+        this.userService = new UserService(new UserRepository());
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<User> users = userRepository.findNotAdmins();
+        List<UserDTO> users = userService.getAllNonAdminUsers();
         request.setAttribute("users", users);
         request.getRequestDispatcher("/WEB-INF/views/admin/user_management.jsp").forward(request, response);
     }
@@ -27,13 +30,13 @@ public class UserManagementServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        long userId = Long.parseLong(request.getParameter("userId"));
-
+        String username = request.getParameter("username");
         if ("delete".equals(action)) {
-            userRepository.deleteById(userId);
+            userService.deleteUser(username);
         } else if ("makeAdmin".equals(action)) {
-            userRepository.updateRole(userId, "ADMIN");
+            userService.makeUserAdmin(username);
         }
+
         response.sendRedirect(request.getContextPath() + "/admin/users");
     }
 }

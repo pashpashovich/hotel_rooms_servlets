@@ -21,7 +21,7 @@
 </form>
 <%
     String error = (String) request.getAttribute("error");
-    if (error != null && "username_taken".equals(error)) {
+    if ("username_taken".equals(error)) {
 %>
 <p style="color:red;">Логин уже занят. Пожалуйста, выберите другой.</p>
 <%

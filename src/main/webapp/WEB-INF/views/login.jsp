@@ -1,6 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -18,7 +18,7 @@
 </form>
 <%
     String error = (String) request.getAttribute("error");
-    if (error != null && "password_not_correct".equals(error)) {
+    if ("password_not_correct".equals(error)) {
 %>
 <p style="color:red;">Пароль не верен... Повторите попытку.</p>
 <%
@@ -26,7 +26,7 @@
 %>
 <%
     String error2 = (String) request.getAttribute("error");
-    if (error2 != null && "username_not_found".equals(error2)) {
+    if ("username_not_found".equals(error2)) {
 %>
 <p style="color:red;">Пользователь с таким логином не зарегистрирован... Проверьте правильность логина.</p>
 <%

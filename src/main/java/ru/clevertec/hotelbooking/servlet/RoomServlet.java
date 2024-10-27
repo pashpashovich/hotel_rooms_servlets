@@ -5,22 +5,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ru.clevertec.hotelbooking.entity.Room;
-import ru.clevertec.hotelbooking.repository.RoomRepository;
+import ru.clevertec.hotelbooking.service.RoomService;
 import ru.clevertec.hotelbooking.repository.RoomRepositoryImpl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
 
 @WebServlet("/admin/rooms")
 public class RoomServlet extends HttpServlet {
-    private final RoomRepository roomRepository = new RoomRepositoryImpl();
+    private final RoomService roomService;
+
+    public RoomServlet() {
+        this.roomService = new RoomService(new RoomRepositoryImpl());
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Room> rooms = roomRepository.findAll();
-        request.setAttribute("rooms", rooms);
+        request.setAttribute("rooms", roomService.getAllRooms());
         request.getRequestDispatcher("/WEB-INF/views/admin/rooms.jsp").forward(request, response);
     }
 
@@ -28,9 +29,7 @@ public class RoomServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String roomType = request.getParameter("roomType");
         BigDecimal price = new BigDecimal(request.getParameter("price"));
-        Room room = new Room(null, roomType, price);
-        roomRepository.save(room);
+        roomService.addRoom(roomType, price);
         response.sendRedirect(request.getContextPath() + "/admin/rooms");
     }
 }
-

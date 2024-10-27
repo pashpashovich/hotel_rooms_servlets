@@ -1,6 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="ru.clevertec.hotelbooking.entity.User" %>
-<%@ page session="true" %>
 <%
   User user = (User) session.getAttribute("user");
   if (user == null || user.getRole() != ru.clevertec.hotelbooking.util.Role.ADMIN) {
@@ -9,7 +8,7 @@
   }
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>Администраторская</title>
@@ -20,7 +19,7 @@
 
 <a href="${pageContext.request.contextPath}/admin/rooms">Управлять комнатами</a>
 <a href="${pageContext.request.contextPath}/admin/users">Управлять пользователями</a>
-
+<a href="${pageContext.request.contextPath}/logout">Выйти из аккаунта</a>
 </body>
 </html>
 

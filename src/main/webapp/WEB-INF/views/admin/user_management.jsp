@@ -1,39 +1,37 @@
-<%@ page import="ru.clevertec.hotelbooking.entity.User" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="ru.clevertec.hotelbooking.dto.UserDTO" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Управление пользователями</title>
 </head>
 <body>
 <h2>Управление пользователями</h2>
-<table border="1">
+<table>
     <tr>
-        <th>ID</th>
         <th>Логин</th>
         <th>Роль</th>
         <th>Действие</th>
     </tr>
     <%
-        List<User> users = (List<User>) request.getAttribute("users");
+        List<UserDTO> users = (List<UserDTO>) request.getAttribute("users");
         if (users != null) {
-            for (User user : users) {
+            for (UserDTO user : users) {
     %>
     <tr>
-        <td><%= user.getId() %></td>
         <td><%= user.getUsername() %></td>
         <td><%= user.getRole() %></td>
         <td>
             <form action="<%= request.getContextPath() %>/admin/users" method="post" style="display:inline;">
-                <input type="hidden" name="userId" value="<%= user.getId() %>">
+                <input type="hidden" name="username" value="<%= user.getUsername() %>">
                 <input type="hidden" name="action" value="delete">
                 <button type="submit">Удалить</button>
             </form>
             <form action="<%= request.getContextPath() %>/admin/users" method="post" style="display:inline;">
-                <input type="hidden" name="userId" value="<%= user.getId() %>">
-                <input type="hidden" name="action" value="makeUser">
+                <input type="hidden" name="username" value="<%= user.getUsername() %>">
+                <input type="hidden" name="action" value="makeAdmin">
                 <button type="submit">Сделать админом</button>
             </form>
         </td>
@@ -44,5 +42,6 @@
     %>
 </table>
 <a href="<%= request.getContextPath() %>/profile">Вернуться на главную</a>
+<a href="${pageContext.request.contextPath}/logout">Выйти из аккаунта</a>
 </body>
 </html>
